@@ -9,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import com.example.kkon.CreateAccountActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
@@ -46,7 +47,8 @@ class MainActivity : AppCompatActivity() {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success")
                             val user = auth.currentUser
-                            val i=Intent(applicationContext,civil_compliant::class.java) //민원화면으로 전환환
+                            //val i=Intent(applicationContext,civil_compliant::class.java) //민원화면으로 전환환
+                            val i=Intent(applicationContext,Menu::class.java) //메뉴화면으로 전환환
                             i.putExtra("user_email",email.text.toString())
                             updateUI(user)
                             startActivity(i)
