@@ -1,0 +1,11 @@
+<resources>
+<string name="app_name">kkon</string>
+<string name="spin_prompt">
+    직업을 선택하세요
+</string>
+<string-array name="spin_arr">
+    <item>학생</item>
+    <item>관리자</item>
+</string-array>
+</resources>
+
