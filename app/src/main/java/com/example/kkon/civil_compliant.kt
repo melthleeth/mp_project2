@@ -1,12 +1,16 @@
 package com.example.kkon
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.database.*
@@ -22,6 +26,9 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
     var data:ArrayList<Data> = ArrayList()
     lateinit var adapter:Myadater
     var aaa=0
+
+    var civil_email=""
+    val database = FirebaseDatabase.getInstance()
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode==123)
@@ -35,7 +42,7 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                 val myRef333 : DatabaseReference = database333.getReference("user")
                 myRef333.child("user$pass3").child("email").setValue(pass1) //user1 email status
                 myRef333.child("user$pass3").child("status").setValue(pass2)
-
+                myRef333.child("user$pass3").child("writer").setValue(civil_email)
             }
         }
     }
@@ -43,22 +50,47 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_civil_compliant)
-        val database77777 : FirebaseDatabase = FirebaseDatabase.getInstance()
-        val myRef77777 : DatabaseReference = database77777.getReference("user_cnt")
+        val myRef77777 : DatabaseReference = database.getReference("user_cnt")
+
         myRef77777.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 aaa=p0.child("cnt").value.toString().toInt()
-//                        for (snapshot in p0.children) {
-//                            aaa= snapshot.value.toString().toInt()
-//                        }
             }
             override fun onCancelled(p0: DatabaseError) {
             }
         })
-        val database = FirebaseDatabase.getInstance()
+
         val myRef = database.getReference("user")
         val i=intent
-        val civil_email=i.getStringExtra("user_email") //로그인한 이메일 받아오기
+        civil_email=i.getStringExtra("user_email") //로그인한 이메일 받아오기
+
+        /////////////////////////////////////////////////////컴플릿 명단에 있으면 알림오게하기
+        val builder = AlertDialog.Builder(ContextThemeWrapper(this@civil_compliant, R.style.Theme_AppCompat_Light_Dialog))
+        val myRef33 : DatabaseReference = database.getReference("complete")
+        myRef33.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                for (snapshot in p0.children) {
+                    if(civil_email==snapshot.value.toString())
+                    {
+                        //////////////////////////////////////
+                        builder.setTitle("알림 ")
+                        builder.setMessage("회원님의 민원이 처리되었습니다.")
+                        builder.setPositiveButton("확인") { _, _ ->
+                            myRef33.child(snapshot.key.toString()).removeValue()
+                        }
+                        builder.setNegativeButton("취소") { _, _ ->
+                            myRef33.child(snapshot.key.toString()).removeValue()
+                        }
+                        builder.show()
+                        //////////////////////////////////////
+                    }
+                }
+            }
+            override fun onCancelled(p0: DatabaseError) {
+            }
+        })
+
+        ////////////////////////////////////////
         civil_compliant_back.setOnClickListener {
             //back버튼 눌렀을때 다시 아디 비번 치는곳으로 가기기(finish쓰기)
             finish()
@@ -68,21 +100,19 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
             //민원 추가하는 버튼튼
 
             val i= Intent(applicationContext,complian_add::class.java)
-            val database77777 : FirebaseDatabase = FirebaseDatabase.getInstance()
-            val myRef77777 : DatabaseReference = database77777.getReference("user_cnt")
-                myRef77777.addValueEventListener(object: ValueEventListener {
-                    override fun onDataChange(p0: DataSnapshot) {
-                        aaa=p0.child("cnt").value.toString().toInt()
-//                        for (snapshot in p0.children) {
-//                            aaa= snapshot.value.toString().toInt()
-//                        }
-                    }
-                    override fun onCancelled(p0: DatabaseError) {
-                    }
-                })
+            //  val database77777 : FirebaseDatabase = FirebaseDatabase.getInstance()
+            val myRef77777 : DatabaseReference = database.getReference("user_cnt")
+            myRef77777.addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    aaa=p0.child("cnt").value.toString().toInt()
+                }
+                override fun onCancelled(p0: DatabaseError) {
+                }
+            })
             aaa++
             myRef77777.child("cnt").setValue(aaa)
             i.putExtra("cntt",aaa)
+            i.putExtra("user_emaill",civil_email)
             startActivityForResult(i,123)
         }
         myRef.addValueEventListener(object: ValueEventListener {
@@ -102,16 +132,59 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
             }
         })
     }
+
     fun init(){
-       val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         listview.layoutManager = layoutManager
         adapter = Myadater(data)
         listview.adapter = adapter
-        adapter.ItemClickListener = object:Myadater.OnItemClickListener{
-            override fun OnItemClick(holder: Myadater.ViewHolder, view: View, data: Data, postion: Int) {
+        val myRef = database.getReference("user")
+        val builder = AlertDialog.Builder(ContextThemeWrapper(this@civil_compliant, R.style.Theme_AppCompat_Light_Dialog))
+        adapter.itemClickListener=object:Myadater.OnItemClickListener{
+            override fun OnItemClick(holder: Myadater.ViewHolder, view: View, data: Data, position: Int) {
                 //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                val database123 : FirebaseDatabase = FirebaseDatabase.getInstance()
-                val myRef123 : DatabaseReference = database123.getReference("user")
+                var aa=data.Id.toString()
+                //////////////////////////////////////
+
+                builder.setTitle("진짜 진짜 ")
+                builder.setMessage("진짜로 지우시겠습니까?")
+                builder.setPositiveButton("확인") { _, _ ->
+                    myRef.addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            // This method is called once with the initial value and again
+                            // whenever data at this location is updated.
+                            for (snapshot in dataSnapshot.children) {
+                                if(aa==snapshot.child("email").value.toString()) //어댑터 아이템의 장소와 디비테이블의 장소를 비교
+                                {
+                                    myRef.child(snapshot.key.toString()).removeValue()
+
+                                    val myRef77777 : DatabaseReference = database.getReference("user_cnt")
+                                    val myRef333 : DatabaseReference = database.getReference("complete")
+
+                                    myRef77777.addValueEventListener(object: ValueEventListener {
+                                        override fun onDataChange(p0: DataSnapshot) {
+                                            aaa=p0.child("cnt").value.toString().toInt()
+                                        }
+                                        override fun onCancelled(p0: DatabaseError) {
+                                        }
+                                    })
+                                    aaa++
+                                    myRef333.child("complete_id$aaa").setValue(snapshot.child("writer").value.toString()) ///민원이 처리됐으면 complete테이블에 추가
+                                    myRef77777.child("cnt").setValue(aaa)
+                                    ///////////////
+                                }
+                            }
+                        }
+                        override fun onCancelled(error: DatabaseError) {
+                            // Failed to read value
+                        }
+                    })
+                }
+                builder.setNegativeButton("취소") { _, _ ->
+                }
+                builder.show()
+                //////////////////////////////////////
+
             }
 
         }

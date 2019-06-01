@@ -9,10 +9,11 @@ import android.widget.TextView
 
 class Myadater(val items:ArrayList<Data>)
     :RecyclerView.Adapter<Myadater.ViewHolder>(){
-    interface OnItemClickListener{ //호출되면 이 함수 쓸거라는 약속
-        fun OnItemClick(holder:ViewHolder,view: View, data:Data,postion: Int)
+    interface OnItemClickListener{
+        fun OnItemClick(holder: ViewHolder,view: View,data:Data,position:Int)
     }
-    var ItemClickListener:OnItemClickListener?=null
+    var itemClickListener:OnItemClickListener?=null
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         val v = LayoutInflater.from(p0.context)
@@ -38,9 +39,10 @@ class Myadater(val items:ArrayList<Data>)
             name = itemView.findViewById(R.id.text1)
             age = itemView.findViewById(R.id.text2)
             itemView.setOnClickListener {
-                val position = adapterPosition
-                ItemClickListener?.OnItemClick(this,it,items[position],position)
+                val position=adapterPosition
+                itemClickListener?.OnItemClick(this,it,items[position],position)
             }
+
         }
     }
 }

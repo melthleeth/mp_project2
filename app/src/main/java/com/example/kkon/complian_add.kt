@@ -16,6 +16,7 @@ class complian_add : AppCompatActivity() {
         compliant_add_btn.setOnClickListener {
             val s= Intent()
             var cnttt=i.getIntExtra("cntt",-1)
+            var civil_emaill=i.getStringExtra("user_emaill")
             s.putExtra("pass1",compliant_add_spot.text.toString())
             s.putExtra("pass2",compliant_add_content.text.toString())
             s.putExtra("pass3",cnttt)

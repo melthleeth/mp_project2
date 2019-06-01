@@ -18,7 +18,7 @@ class Menu : AppCompatActivity() {
             startActivity(i)
         }
         button2.setOnClickListener {
-            val i=Intent(applicationContext,civil_compliant::class.java) //민원화면으로 전환환
+            val i=Intent(applicationContext,MainActivity::class.java) //민원화면으로 전환환
             startActivity(i)
         }
     }
