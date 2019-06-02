@@ -26,7 +26,8 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
     var data:ArrayList<Data> = ArrayList()
     lateinit var adapter:Myadater
     var aaa=0
-
+    var flag=0
+    var flagg=0
     var civil_email=""
     val database = FirebaseDatabase.getInstance()
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -119,13 +120,57 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
             override fun onDataChange(p0: DataSnapshot) {
                 data.clear()
                 for (snapshot in p0.children) {
-                    data.add(
-                        Data(
-                            snapshot.child("email").value.toString(),
-                            snapshot.child("status").value.toString(),
-                            0
+                    /////////////////////////
+
+                    val myRef88 : DatabaseReference = database.getReference("user").child(snapshot.key.toString()).child("likepeople")
+                    myRef88.addValueEventListener(object : ValueEventListener{
+                        override fun onDataChange(p0: DataSnapshot) {
+                            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                            for (snapshot in p0.children){
+                                if(civil_email==snapshot.value.toString())
+                                {
+                                    Log.d("aaa","no1")
+                                    flag=1
+                                    if(flag==1)
+                                    {
+                                        flagg=1
+                                    }
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(p0: DatabaseError) {
+                            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        }
+
+                    })
+                    Toast.makeText(applicationContext,flag.toString(),Toast.LENGTH_LONG).show()
+                    ////////////////////////
+                    if(flag==1) {
+                        Log.d("aaa","no2")
+                        data.add(
+                            Data(
+                                snapshot.child("email").value.toString(),
+                                snapshot.child("status").value.toString(),
+                                1
+                            )
                         )
-                    )
+                        flag=0
+                        flagg=0
+                    }else{
+                        Log.d("aaa","no9")
+                        data.add(
+                            Data(
+                                snapshot.child("email").value.toString(),
+                                snapshot.child("status").value.toString(),
+                                0
+                            )
+                        )
+                        flag=0
+                        flagg=0
+                    }
+
+
                 }
                 init()
             }
@@ -145,10 +190,71 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
             override fun OnLikeClick(holder: Myadater.ViewHolder, view: View, data: Data, position: Int) {
                 //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 when(data.like){
-                    0 -> {data.like=1}
-                    1 -> {data.like=0}
+                    0 -> {
+                        Log.d("aaa","no3")
+                        data.like=1
+                        var kk=data.Id.toString()
+                        //////////////////////
+                        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                for (snapshot in dataSnapshot.children) {
+                                    if(kk==snapshot.child("email").value.toString()) //어댑터 아이템의 장소와 디비테이블의 장소를 비교
+                                    {
+                                        ///////////////////////////////////
+                                        val myRef77777 : DatabaseReference = database.getReference("user_cnt")
+                                        myRef77777.addValueEventListener(object: ValueEventListener {
+                                            override fun onDataChange(p0: DataSnapshot) {
+                                                aaa=p0.child("cnt").value.toString().toInt()
+                                            }
+                                            override fun onCancelled(p0: DatabaseError) {
+                                            }
+                                        })
+                                        aaa++
+                                        ///////////////////////////////////
+                                        myRef.child(snapshot.key.toString()).child("likepeople").child("people$aaa").setValue(civil_email)
+                                        myRef77777.child("cnt").setValue(aaa)
+                                    }
+                                }
+                            }
+                            override fun onCancelled(error: DatabaseError) {
+                                // Failed to read value
+                            }
+                        })
+                        //////////////////////
+                    }
+
+                    1 -> {
+                        Log.d("aaa","no4")
+                        data.like=0
+                        var kk=data.Id.toString()
+                        //////////////////////
+                        myRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                for (snapshot in dataSnapshot.children) {
+                                    if(kk==snapshot.child("email").value.toString()) //어댑터 아이템의 장소와 디비테이블의 장소를 비교
+                                    {
+                                        ///////////////////////////////////////////
+                                        val myRef01 : DatabaseReference = database.getReference("user").child(snapshot.key.toString()).child("likepeople")
+                                        myRef01.addListenerForSingleValueEvent(object: ValueEventListener {
+                                            override fun onDataChange(p0: DataSnapshot) {
+                                                if(kk==p0.value.toString()){
+                                                    myRef01.child(p0.key.toString()).removeValue()
+                                                }
+                                            }
+                                            override fun onCancelled(p0: DatabaseError) {
+                                            }
+                                        })
+                                        ///////////////////////////////////////////
+                                    }
+                                }
+                            }
+                            override fun onCancelled(error: DatabaseError) {
+                                // Failed to read value
+                            }
+                        })
+                    }
                 }
-                init()
+                //init()
             }
 
             override fun OnItemClick(holder: Myadater.ViewHolder, view: View, data: Data, position: Int) {
@@ -181,6 +287,7 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                                     aaa++
                                     myRef333.child("complete_id$aaa").setValue(snapshot.child("writer").value.toString()) ///민원이 처리됐으면 complete테이블에 추가
                                     myRef77777.child("cnt").setValue(aaa)
+
                                     ///////////////
                                 }
                             }
