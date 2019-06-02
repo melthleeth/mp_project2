@@ -122,7 +122,8 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                     data.add(
                         Data(
                             snapshot.child("email").value.toString(),
-                            snapshot.child("status").value.toString()
+                            snapshot.child("status").value.toString(),
+                            0
                         )
                     )
                 }
@@ -141,6 +142,15 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
         val myRef = database.getReference("user")
         val builder = AlertDialog.Builder(ContextThemeWrapper(this@civil_compliant, R.style.Theme_AppCompat_Light_Dialog))
         adapter.itemClickListener=object:Myadater.OnItemClickListener{
+            override fun OnLikeClick(holder: Myadater.ViewHolder, view: View, data: Data, position: Int) {
+                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                when(data.like){
+                    0 -> {data.like=1}
+                    1 -> {data.like=0}
+                }
+                init()
+            }
+
             override fun OnItemClick(holder: Myadater.ViewHolder, view: View, data: Data, position: Int) {
                 //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 var aa=data.Id.toString()
