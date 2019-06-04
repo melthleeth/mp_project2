@@ -30,8 +30,8 @@ class Myadater(val items:ArrayList<Data>)
         p0.name.text = items.get(p1).Id
         p0.age.text = items.get(p1).sta
         when(items.get(p1).like){
-            0 -> p0.like.setImageResource(R.drawable.unlike)
-            1 -> p0.like.setImageResource(R.drawable.like)
+            0 -> p0.like.setImageResource(R.drawable.unlikee)
+            1 -> p0.like.setImageResource(R.drawable.likee)
         }
 
     }

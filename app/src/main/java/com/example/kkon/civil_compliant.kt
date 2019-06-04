@@ -75,15 +75,17 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                         val email = snapshot.child("email").value.toString()
                         val status = snapshot.child("status").value.toString()
                         //////////////////////////////////////
-                        builder.setTitle("알림 ")
+                        myRef33.child(snapshot.key.toString()).removeValue()
+                        builder.setTitle("알림")
                         builder.setMessage("회원님의 (" + email + " , " + status + ") 민원이 처리되었습니다.")
                         builder.setPositiveButton("확인") { _, _ ->
-                            myRef33.child(snapshot.key.toString()).removeValue()
+
                         }
                         builder.setNegativeButton("취소") { _, _ ->
-                            myRef33.child(snapshot.key.toString()).removeValue()
                         }
-                        builder.show()
+                        if(civil_email!="") {
+                            builder.show()
+                        }
                         //////////////////////////////////////
                     }
                 }
@@ -162,7 +164,10 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
             }
         })
     }
-
+    override fun onDestroy() {
+        super.onDestroy()
+        civil_email=""
+    }
     fun init(){
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         listview.layoutManager = layoutManager

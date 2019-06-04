@@ -132,6 +132,9 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth?.currentUser
         updateUI(currentUser) //이건 원하는대로 사용자 설정해 주는 부분인듯 하다.
     }
+
+
+
     fun updateUI(cUser : FirebaseUser? = null){
         if(cUser != null) {
             tv_message.setText("로그인 되었습니다.")

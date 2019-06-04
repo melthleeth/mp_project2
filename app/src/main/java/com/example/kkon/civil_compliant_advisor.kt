@@ -132,14 +132,14 @@ class civil_compliant_advisor : AppCompatActivity() { //로그인해서 들어�
                                     })
                                     for(snapshot2 in snapshot.child("likepeople").children) {
                                         aaa++
-                                        myRef333.child("complete_id$aaa").child("email")
-                                            .setValue(snapshot.child("email").value.toString())
-                                        myRef333.child("complete_id$aaa").child("status")
-                                            .setValue(snapshot.child("status").value.toString())
-                                        myRef333.child("complete_id$aaa").child("writer")
-                                            .setValue(snapshot2.value.toString())
-                                        myRef77777.child("cnt").setValue(aaa)
-                                    }
+                                    myRef333.child("complete_id$aaa").child("email")
+                                        .setValue(snapshot.child("email").value.toString())
+                                    myRef333.child("complete_id$aaa").child("status")
+                                        .setValue(snapshot.child("status").value.toString())
+                                    myRef333.child("complete_id$aaa").child("writer")
+                                        .setValue(snapshot2.value.toString())
+                                    myRef77777.child("cnt").setValue(aaa)
+                                }
                                     ///////////////
                                 }
                             }

@@ -32,8 +32,9 @@
         <ImageButton
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/unlike"
-                android:id="@+id/imageView"/>
+                android:src="@drawable/unlikee"
+                style="?android:attr/borderlessButtonStyle"
+                android:id="@+id/imageView" android:scaleType="fitXY"/>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
