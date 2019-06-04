@@ -8,7 +8,7 @@
         android:orientation="vertical"
         android:gravity="center"
         tools:context=".Board"
-        android:background="@color/bg_green">
+        android:background="@color/themeColor">
 
     <TextView
             android:layout_width="wrap_content"

@@ -6,47 +6,61 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/themeColor"
         tools:context=".complian_add">
     <LinearLayout android:layout_width="match_parent"
                   android:layout_weight="1"
                   android:orientation="horizontal"
                   android:layout_height="0dp">
-        <Button android:layout_width="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_height="match_parent"/>
+
         <TextView android:layout_width="0dp"
                   android:layout_weight="4"
+                  android:textSize="35dp"
                   android:gravity="center"
                   android:layout_height="match_parent" android:text="민원 추가하기"/>
     </LinearLayout>
     <LinearLayout android:layout_width="match_parent"
-                  android:layout_weight="2"
+                  android:layout_weight="1"
+
+                  android:layout_marginLeft="40dp"
+                  android:layout_marginRight="40dp"
+                  android:layout_marginBottom="20dp"
+                  android:padding="10dp"
                   android:orientation="horizontal"
+                  android:background="@drawable/bg_txt2"
                   android:layout_height="0dp">
         <TextView android:layout_width="0dp"
                   android:layout_weight="1"
                   android:gravity="center"
+                  android:background="@color/white"
                   android:layout_gravity="center"
                   android:layout_height="match_parent" android:text="장소"/>
         <EditText android:layout_width="0dp"
                   android:id="@+id/compliant_add_spot"
                   android:layout_weight="3"
+                  android:background="@color/white"
                   android:gravity="center"
                   android:layout_gravity="center"
                   android:layout_height="match_parent"/>
     </LinearLayout>
     <LinearLayout android:layout_width="match_parent"
-                  android:layout_weight="2"
+                  android:layout_weight="3"
+                  android:layout_marginLeft="40dp"
+                  android:padding="10dp"
+                  android:layout_marginRight="40dp"
+                  android:layout_marginBottom="20dp"
                   android:orientation="horizontal"
+                  android:background="@drawable/bg_txt2"
                   android:layout_height="0dp">
         <TextView android:layout_width="0dp"
                   android:layout_weight="1"
                   android:layout_gravity="center"
                   android:gravity="center"
+                  android:background="@color/white"
                   android:layout_height="match_parent" android:text="내용"/>
         <EditText android:layout_width="0dp"
                   android:layout_gravity="center"
+                  android:background="@color/white"
                   android:id="@+id/compliant_add_content"
                   android:gravity="center"
                   android:layout_weight="3"
@@ -55,6 +69,9 @@
 
     <Button android:layout_width="match_parent"
             android:layout_weight="1"
+            android:layout_marginRight="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginBottom="40dp"
             android:id="@+id/compliant_add_btn"
             android:layout_gravity="center"
             android:layout_height="0dp" android:text="추가하기"/>

@@ -81,8 +81,8 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                         builder.setPositiveButton("확인") { _, _ ->
 
                         }
-                        builder.setNegativeButton("취소") { _, _ ->
-                        }
+//                        builder.setNegativeButton("취소") { _, _ ->
+//                        }
                         if(civil_email!="") {
                             builder.show()
                         }
@@ -95,10 +95,6 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
         })
 
         ////////////////////////////////////////
-        civil_compliant_back.setOnClickListener {
-            //back버튼 눌렀을때 다시 아디 비번 치는곳으로 가기기(finish쓰기)
-            finish()
-        }
 
         civil_compliant_add.setOnClickListener {
             //민원 추가하는 버튼튼
