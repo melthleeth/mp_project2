@@ -7,4 +7,6 @@
     <color name="bg_green">#B8DC70</color>
     <color name="redbean">#6A243E</color>
     <color name="orange">#FF4500</color>
+    <color name="themeColor">#c6f1e7</color>
+    <color name="white">#ffffff</color>
 </resources>
