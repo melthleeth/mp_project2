@@ -21,7 +21,12 @@ class complian_add : AppCompatActivity() {
             s.putExtra("pass2",compliant_add_content.text.toString())
             s.putExtra("pass3",cnttt)
             setResult(Activity.RESULT_OK,s)
-            finish()//여기서 피니시하면 호출한 메인으로 넘어간다
+            if (compliant_add_spot.text.toString().length == 0 || compliant_add_content.text.toString().length == 0) {
+                Toast.makeText(applicationContext, "장소와 내용이 모두 적혀있는지 확인하세요.", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                finish()//여기서 피니시하면 호출한 메인으로 넘어간다
+            }
         }
 
     }
