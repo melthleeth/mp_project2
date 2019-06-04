@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private val TAG: String = "MainActivity"
-
+    var main_status=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,12 +44,39 @@ class MainActivity : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success")
                             val user = auth.currentUser
                             val i=Intent(applicationContext,civil_compliant::class.java) //민원화면으로 전환환
-                            i.putExtra("user_email",email.text.toString())
-                            updateUI(user)
-                            startActivity(i)
+                            val i2=Intent(applicationContext,civil_compliant_advisor::class.java)
+                            //////////////////////////////////////////////////////
+                            val database9 : FirebaseDatabase = FirebaseDatabase.getInstance()
+                            val myRef9 : DatabaseReference = database9.getReference("account")
+                            myRef9.addValueEventListener(object: ValueEventListener {
+                                override fun onDataChange(p0: DataSnapshot) {
+                                    for (snapshot in p0.children) {
+                                     if(email.text.toString()==snapshot.child("email").value.toString())
+                                     {
+                                         main_status=snapshot.child("status").value.toString()
+                                         i.putExtra("user_email",email.text.toString())
+                                         i.putExtra("user_status",main_status)
+                                         updateUI(user)
+                                         if(main_status=="student"){
+                                             startActivity(i)
+                                         }
+                                         else{
+                                             startActivity(i2)
+                                         }
+
+                                     }
+                                    }
+                                }
+                                override fun onCancelled(p0: DatabaseError) {
+                                }
+                            })
+
+                            //////////////////////////////////////////
+
+
+
 
                         } else {
                             // If sign in fails, display a message to the user.

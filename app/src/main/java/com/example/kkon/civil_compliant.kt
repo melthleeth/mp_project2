@@ -27,8 +27,8 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
     lateinit var adapter:Myadater
     var aaa=0
     var flag=0
-    var flagg=0
     var civil_email=""
+    var civil_status=""
     val database = FirebaseDatabase.getInstance()
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -64,18 +64,19 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
         val myRef = database.getReference("user")
         val i=intent
         civil_email=i.getStringExtra("user_email") //로그인한 이메일 받아오기
-
         /////////////////////////////////////////////////////컴플릿 명단에 있으면 알림오게하기
         val builder = AlertDialog.Builder(ContextThemeWrapper(this@civil_compliant, R.style.Theme_AppCompat_Light_Dialog))
         val myRef33 : DatabaseReference = database.getReference("complete")
         myRef33.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 for (snapshot in p0.children) {
-                    if(civil_email==snapshot.value.toString())
+                    if(civil_email==snapshot.child("writer").value.toString())
                     {
+                        val email = snapshot.child("email").value.toString()
+                        val status = snapshot.child("status").value.toString()
                         //////////////////////////////////////
                         builder.setTitle("알림 ")
-                        builder.setMessage("회원님의 민원이 처리되었습니다.")
+                        builder.setMessage("회원님의 (" + email + " , " + status + ") 민원이 처리되었습니다.")
                         builder.setPositiveButton("확인") { _, _ ->
                             myRef33.child(snapshot.key.toString()).removeValue()
                         }
@@ -121,30 +122,15 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                 data.clear()
                 for (snapshot in p0.children) {
                     /////////////////////////
-
-                    val myRef88 : DatabaseReference = database.getReference("user").child(snapshot.key.toString()).child("likepeople")
-                    myRef88.addValueEventListener(object : ValueEventListener{
-                        override fun onDataChange(p0: DataSnapshot) {
-                            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                            for (snapshot in p0.children){
-                                if(civil_email==snapshot.value.toString())
-                                {
-                                    Log.d("aaa","no1")
-                                    flag=1
-                                    if(flag==1)
-                                    {
-                                        flagg=1
-                                    }
-                                }
-                            }
+                    flag=0
+                    Log.d("aaa","no77")
+                    for(snapshot2 in snapshot.child("likepeople").children){
+                        if(civil_email==snapshot2.value.toString())
+                        {
+                            flag=1
                         }
+                    }
 
-                        override fun onCancelled(p0: DatabaseError) {
-                            //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                        }
-
-                    })
-                    Toast.makeText(applicationContext,flag.toString(),Toast.LENGTH_LONG).show()
                     ////////////////////////
                     if(flag==1) {
                         Log.d("aaa","no2")
@@ -156,7 +142,6 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                             )
                         )
                         flag=0
-                        flagg=0
                     }else{
                         Log.d("aaa","no9")
                         data.add(
@@ -167,7 +152,6 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                             )
                         )
                         flag=0
-                        flagg=0
                     }
 
 
@@ -234,17 +218,13 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                                     if(kk==snapshot.child("email").value.toString()) //어댑터 아이템의 장소와 디비테이블의 장소를 비교
                                     {
                                         ///////////////////////////////////////////
-                                        val myRef01 : DatabaseReference = database.getReference("user").child(snapshot.key.toString()).child("likepeople")
-                                        myRef01.addListenerForSingleValueEvent(object: ValueEventListener {
-                                            override fun onDataChange(p0: DataSnapshot) {
-                                                if(kk==p0.value.toString()){
-                                                    myRef01.child(p0.key.toString()).removeValue()
-                                                }
+                                        for(snapshot2 in snapshot.child("likepeople").children){
+                                            if(civil_email==snapshot2.value.toString())
+                                            {
+                                               myRef.child(snapshot.key.toString()).child("likepeople").child(snapshot2.key.toString()).removeValue()
+
                                             }
-                                            override fun onCancelled(p0: DatabaseError) {
-                                            }
-                                        })
-                                        ///////////////////////////////////////////
+                                        }
                                     }
                                 }
                             }
@@ -259,49 +239,6 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
 
             override fun OnItemClick(holder: Myadater.ViewHolder, view: View, data: Data, position: Int) {
                 //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                var aa=data.Id.toString()
-                //////////////////////////////////////
-
-                builder.setTitle("진짜 진짜 ")
-                builder.setMessage("진짜로 지우시겠습니까?")
-                builder.setPositiveButton("확인") { _, _ ->
-                    myRef.addValueEventListener(object : ValueEventListener {
-                        override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            // This method is called once with the initial value and again
-                            // whenever data at this location is updated.
-                            for (snapshot in dataSnapshot.children) {
-                                if(aa==snapshot.child("email").value.toString()) //어댑터 아이템의 장소와 디비테이블의 장소를 비교
-                                {
-                                    myRef.child(snapshot.key.toString()).removeValue()
-
-                                    val myRef77777 : DatabaseReference = database.getReference("user_cnt")
-                                    val myRef333 : DatabaseReference = database.getReference("complete")
-
-                                    myRef77777.addValueEventListener(object: ValueEventListener {
-                                        override fun onDataChange(p0: DataSnapshot) {
-                                            aaa=p0.child("cnt").value.toString().toInt()
-                                        }
-                                        override fun onCancelled(p0: DatabaseError) {
-                                        }
-                                    })
-                                    aaa++
-                                    myRef333.child("complete_id$aaa").setValue(snapshot.child("writer").value.toString()) ///민원이 처리됐으면 complete테이블에 추가
-                                    myRef77777.child("cnt").setValue(aaa)
-
-                                    ///////////////
-                                }
-                            }
-                        }
-                        override fun onCancelled(error: DatabaseError) {
-                            // Failed to read value
-                        }
-                    })
-                }
-                builder.setNegativeButton("취소") { _, _ ->
-                }
-                builder.show()
-                //////////////////////////////////////
-
             }
 
         }

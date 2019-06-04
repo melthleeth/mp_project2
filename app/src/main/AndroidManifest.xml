@@ -9,6 +9,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".civil_compliant_advisor">
+        </activity>
         <activity android:name=".Board">
         </activity>
         <activity android:name=".Menu">
@@ -25,7 +27,6 @@
         <activity android:name=".CreateAccountActivity">
         </activity>
         <activity android:name=".MainActivity">
-
         </activity>
     </application>
 
