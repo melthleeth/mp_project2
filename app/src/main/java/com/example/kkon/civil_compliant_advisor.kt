@@ -49,7 +49,7 @@ class civil_compliant_advisor : AppCompatActivity() { //로그인해서 들어�
             override fun onDataChange(p0: DataSnapshot) {
                 data.clear()
                 for (snapshot in p0.children) {
-                        if(spin_advisor.selectedItem.toString()!="전체"){
+                    if(spin_advisor.selectedItem.toString()!="전체"){
                         if(spin_advisor.selectedItem.toString()==snapshot.child("email").value.toString()) {
                             data.add(
                                 Data(
@@ -59,15 +59,15 @@ class civil_compliant_advisor : AppCompatActivity() { //로그인해서 들어�
                                 )
                             )
                         }
-                        }else{
-                            data.add(
-                                Data(
-                                    snapshot.child("email").value.toString(),
-                                    snapshot.child("status").value.toString(),
-                                    0
-                                )
+                    }else{
+                        data.add(
+                            Data(
+                                snapshot.child("email").value.toString(),
+                                snapshot.child("status").value.toString(),
+                                0
                             )
-                        }
+                        )
+                    }
                 }
                 init()
             }
@@ -119,14 +119,14 @@ class civil_compliant_advisor : AppCompatActivity() { //로그인해서 들어�
                                     })
                                     for(snapshot2 in snapshot.child("likepeople").children) {
                                         aaa++
-                                    myRef333.child("complete_id$aaa").child("email")
-                                        .setValue(snapshot.child("email").value.toString())
-                                    myRef333.child("complete_id$aaa").child("status")
-                                        .setValue(snapshot.child("status").value.toString())
-                                    myRef333.child("complete_id$aaa").child("writer")
-                                        .setValue(snapshot2.value.toString())
-                                    myRef77777.child("cnt").setValue(aaa)
-                                }
+                                        myRef333.child("complete_id$aaa").child("email")
+                                            .setValue(snapshot.child("email").value.toString())
+                                        myRef333.child("complete_id$aaa").child("status")
+                                            .setValue(snapshot.child("status").value.toString())
+                                        myRef333.child("complete_id$aaa").child("writer")
+                                            .setValue(snapshot2.value.toString())
+                                        myRef77777.child("cnt").setValue(aaa)
+                                    }
                                     ///////////////
                                 }
                             }
@@ -186,4 +186,3 @@ class civil_compliant_advisor : AppCompatActivity() { //로그인해서 들어�
     }
 
 }
-

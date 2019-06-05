@@ -227,7 +227,7 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                                         for(snapshot2 in snapshot.child("likepeople").children){
                                             if(civil_email==snapshot2.value.toString())
                                             {
-                                               myRef.child(snapshot.key.toString()).child("likepeople").child(snapshot2.key.toString()).removeValue()
+                                                myRef.child(snapshot.key.toString()).child("likepeople").child(snapshot2.key.toString()).removeValue()
 
                                             }
                                         }
