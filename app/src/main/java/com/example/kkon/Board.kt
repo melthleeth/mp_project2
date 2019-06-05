@@ -18,10 +18,10 @@ import java.io.IOException
 // ?
 class Board : AppCompatActivity() {
     var list:ArrayList<ItemObject> = ArrayList()
-    var boardData:ArrayList<BoardData> = ArrayList() // 공지사항
-    var boardData2:ArrayList<BoardData> = ArrayList() // 취업공지
-    var boardData3:ArrayList<BoardData> = ArrayList() // 공지사항
-    var boardData4:ArrayList<BoardData> = ArrayList() // 특강공지
+    var boardData:ArrayList<BoardData> = ArrayList() // 행정실 공지사항
+    var boardData2:ArrayList<BoardData> = ArrayList() // 서울어코드 공지사항
+    var boardData3:ArrayList<BoardData> = ArrayList() // 행정실 취업공지
+    var boardData4:ArrayList<BoardData> = ArrayList() // 서울어코드 특강공지
 
     val addr1 = "http://home.konkuk.ac.kr/cms/Site/ControlReader/MiniBoardList/miniboard_list_etype_ku_board.jsp?siteId=im&menuId=11892&menuId=11896&forumId=11914&forumId=18240&titleImg=/cms/Site/UserFiles/Image/internet/main_notice_title.gif&tabImg=/cms/Site/UserFiles/Image/internet/main_notice_tab0&rowsNum=6&moreImg=/cms/Site/UserFiles/Image/internet/btn_more.gif"
     val addr2 = "http://home.konkuk.ac.kr/cms/Site/ControlReader/MiniBoardList/miniboard_list_etype_ku_board.jsp?siteId=im&menuId=3266851&menuId=12351727&forumId=12368452&forumId=12368521&titleImg=/cms/Site/UserFiles/Image/internet/main_board_title.gif&tabImg=/cms/Site/UserFiles/Image/internet/main_board_tab0&rowsNum=6&moreImg=/cms/Site/UserFiles/Image/internet/btn_more.gif"
@@ -59,7 +59,7 @@ class Board : AppCompatActivity() {
         adapter1Board = BoardDataAdapter(boardData)
         recyclerview.adapter = adapter1Board
 
-        adapter2Board = BoardDataAdapter(boardData2)
+        adapter2Board = BoardDataAdapter(boardData3)
         recyclerview2.adapter = adapter2Board
 
         spinner_board.onItemSelectedListener = SpinnerSelectedListener()
@@ -112,7 +112,7 @@ class Board : AppCompatActivity() {
                 recyclerview.adapter = adapter1Board
                 adapter1Board.notifyDataSetChanged()
 
-                adapter2Board = BoardDataAdapter(boardData2)
+                adapter2Board = BoardDataAdapter(boardData3)
                 recyclerview2.adapter = adapter2Board
                 adapter2Board.notifyDataSetChanged()
                 txt_recyclerView2.text = "취업공지"
@@ -121,7 +121,7 @@ class Board : AppCompatActivity() {
 
                 adapterClick()
             } else {
-                adapter1Board = BoardDataAdapter(boardData3)
+                adapter1Board = BoardDataAdapter(boardData2)
                 recyclerview.adapter = adapter1Board
                 adapter1Board.notifyDataSetChanged()
 
