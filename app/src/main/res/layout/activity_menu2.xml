@@ -24,21 +24,19 @@
 
         <Button
                 android:id="@+id/button1"
-                android:background="@drawable/notice"
-                android:layout_width="0dp"
+                android:background="@drawable/notice_ss"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:padding="30dp"
-                android:layout_marginRight="15dp"/>
+                android:layout_marginRight="20dp"/>
 
         <Button
                 android:id="@+id/button2"
-                android:background="@drawable/minwon_s"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:background="@drawable/minwon_ss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:padding="30dp"
-                android:layout_marginLeft="15dp"/>
+                android:layout_marginLeft="20dp"/>
 
     </LinearLayout>
 
@@ -46,27 +44,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="5dp">
 
         <TextView
                 android:text="공지사항"
-                android:textAlignment="center"
+                android:textAlignment="textEnd"
+                android:paddingRight="55dp"
                 android:textColor="@color/txt_green"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:fontFamily="@font/baemin_hanna_air"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1" android:layout_gravity="end"/>
 
         <TextView
                 android:text="민원"
-                android:textAlignment="center"
+                android:textAlignment="textStart"
+                android:paddingLeft="55dp"
                 android:textColor="@color/txt_green"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 android:fontFamily="@font/baemin_hanna_air"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1" android:layout_gravity="start"/>
 
     </LinearLayout>
 

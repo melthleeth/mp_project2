@@ -55,7 +55,7 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@+id/tv_message"
             app:layout_constraintStart_toStartOf="parent"/>
     <TextView
-            android:text="TextView"
+            android:text=""
             android:layout_width="0dp"
             android:gravity="center"
             android:layout_height="wrap_content"

@@ -14,11 +14,11 @@ class Menu : AppCompatActivity() {
     }
     fun init(){
         button1.setOnClickListener {
-            val i= Intent(applicationContext,Board::class.java) //공지사항화면으로 전환환
+            val i= Intent(applicationContext,Board::class.java) //공지사항화면으로 전환
             startActivity(i)
         }
         button2.setOnClickListener {
-            val i=Intent(applicationContext,MainActivity::class.java) //민원화면으로 전환환
+            val i=Intent(applicationContext,MainActivity::class.java) //민원화면으로 전환
             startActivity(i)
         }
     }
