@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.kkon">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
@@ -10,8 +13,6 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".civil_compliant_advisor">
-        </activity>
-        <activity android:name=".Board">
         </activity>
         <activity android:name=".Menu">
             <intent-filter>
@@ -27,6 +28,10 @@
         <activity android:name=".CreateAccountActivity">
         </activity>
         <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".Board">
+        </activity>
+        <activity android:name=".Board_detail">
         </activity>
     </application>
 

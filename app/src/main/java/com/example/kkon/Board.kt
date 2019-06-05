@@ -129,8 +129,8 @@ class Board : AppCompatActivity() {
                 recyclerview2.adapter = adapter2Board
                 adapter2Board.notifyDataSetChanged()
                 txt_recyclerView2.text = "특강공지"
-                txt_recyclerView1.setBackgroundResource(R.drawable.bg_txt2)
-                txt_recyclerView2.setBackgroundResource(R.drawable.bg_txt2)
+                txt_recyclerView1.setBackgroundResource(R.drawable.bg_txt3)
+                txt_recyclerView2.setBackgroundResource(R.drawable.bg_txt3)
 
                 adapterClick()
             }
