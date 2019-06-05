@@ -22,12 +22,19 @@
                       android:layout_height="match_parent" android:text="민원처리"/>
 
         </LinearLayout>
-
+        <Spinner android:layout_width="match_parent"
+                 android:id="@+id/spin_advisor"
+                 android:entries="@array/spin_spot"
+                 android:gravity="center"
+                 android:layout_marginRight="120dp"
+                 android:layout_marginLeft="120dp"
+                 android:background="@color/white"
+                 android:layout_height="wrap_content"></Spinner>
         <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:gravity="center"
-                android:id="@+id/listview"
+                android:id="@+id/listview2"
                 android:layout_weight="5">
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>

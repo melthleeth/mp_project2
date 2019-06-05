@@ -179,11 +179,12 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                         Log.d("aaa","no3")
                         data.like=1
                         var kk=data.Id.toString()
+                        var kk2=data.sta.toString()
                         //////////////////////
                         myRef.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(dataSnapshot: DataSnapshot) {
                                 for (snapshot in dataSnapshot.children) {
-                                    if(kk==snapshot.child("email").value.toString()) //어댑터 아이템의 장소와 디비테이블의 장소를 비교
+                                    if(kk==snapshot.child("email").value.toString()&&kk2==snapshot.child("status").value.toString()) //어댑터 아이템의 장소와 디비테이블의 장소를 비교
                                     {
                                         ///////////////////////////////////
                                         val myRef77777 : DatabaseReference = database.getReference("user_cnt")
