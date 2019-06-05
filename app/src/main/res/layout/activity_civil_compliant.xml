@@ -16,7 +16,8 @@
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
 
             <ImageButton
                     android:layout_width="70dp"
@@ -25,7 +26,7 @@
                     android:id="@+id/hi"/>
 
             <TextView
-                    android:text="민원 목록"
+                    android:text="민원 리스트"
                     android:textSize="40sp"
                     android:fontFamily="@font/baemin_hanna"
                     android:textColor="@color/txt_green"
@@ -51,7 +52,7 @@
                 android:padding="10dp"
                 android:gravity="center"
                 android:id="@+id/listview"
-                android:layout_weight="5">
+                android:layout_weight="1">
         </android.support.v7.widget.RecyclerView>
 
         <LinearLayout

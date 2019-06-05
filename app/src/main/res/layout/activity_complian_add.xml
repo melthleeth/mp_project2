@@ -122,7 +122,7 @@
         <EditText
                 android:layout_width="0dp"
                 android:layout_gravity="center"
-                android:textSize="16sp"
+                android:textSize="17sp"
                 android:fontFamily="@font/nanum_square_r"
                 android:textColor="@color/txt_maroon"
                 android:id="@+id/compliant_add_content"
@@ -136,7 +136,7 @@
             android:text="추가하기"
             android:id="@+id/compliant_add_btn"
             android:layout_gravity="center"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:fontFamily="@font/baemin_hanna_air"
             android:textColor="@color/redbean"
             android:layout_width="wrap_content"

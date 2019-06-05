@@ -8,5 +8,5 @@
             android:width="5dp"
             android:color="@color/redbean"/>
 
-    <solid android:color="#00FFFFFF"/>
+    <solid android:color="#A7FFFFFF"/>
 </shape>
