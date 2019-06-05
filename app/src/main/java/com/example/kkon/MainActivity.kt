@@ -36,7 +36,9 @@ class MainActivity : AppCompatActivity() {
 
         //로그인
         bt_login.setOnClickListener {
-
+            bt_login.setBackgroundResource(R.drawable.bg_btn3)
+            bt_create.setBackgroundResource(R.drawable.bg_btn2)
+            bt_logout.setBackgroundResource(R.drawable.bg_btn2)
             if (email.text.toString().length == 0 || password.text.toString().length == 0) {
                 Toast.makeText(this, "email 혹은 password를 반드시 입력하세요.", Toast.LENGTH_SHORT).show()
             } else {
@@ -94,11 +96,17 @@ class MainActivity : AppCompatActivity() {
 
         }
         bt_create.setOnClickListener {
+            bt_login.setBackgroundResource(R.drawable.bg_btn2)
+            bt_create.setBackgroundResource(R.drawable.bg_btn3)
+            bt_logout.setBackgroundResource(R.drawable.bg_btn2)
             val intent = Intent(this, CreateAccountActivity::class.java)
             startActivity(intent)
         }
 
         bt_logout.setOnClickListener {
+            bt_login.setBackgroundResource(R.drawable.bg_btn2)
+            bt_create.setBackgroundResource(R.drawable.bg_btn2)
+            bt_logout.setBackgroundResource(R.drawable.bg_btn3)
             auth.signOut()
             //로그인 활성화 - 이걸 더 효율적으로 하는 방법이 있을것 같은데 일일히 적어 줘야 해?
             tv_message.setText("로그인이 필요합니다..")
