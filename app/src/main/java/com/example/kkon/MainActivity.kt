@@ -37,8 +37,10 @@ class MainActivity : AppCompatActivity() {
         //로그인
         bt_login.setOnClickListener {
 
+
             if (email.text.toString().length == 0 || password.text.toString().length == 0) {
                 Toast.makeText(this, "email 혹은 password를 반드시 입력하세요.", Toast.LENGTH_SHORT).show()
+
             } else {
                 auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
                     .addOnCompleteListener(this) { task ->
@@ -93,6 +95,9 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+
+
         bt_create.setOnClickListener {
             val intent = Intent(this, CreateAccountActivity::class.java)
             startActivity(intent)

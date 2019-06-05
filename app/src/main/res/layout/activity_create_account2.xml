@@ -108,7 +108,7 @@
                 android:layout_marginRight="10dp"
                 android:paddingVertical="10dp"
                 android:paddingHorizontal="40dp"
-                android:background="@drawable/bg_btn3"/>
+                android:background="@drawable/bg_btn3_action"/>
 
         <Button
                 android:id="@+id/bt_cancel"
@@ -121,7 +121,7 @@
                 android:layout_marginLeft="10dp"
                 android:paddingVertical="10dp"
                 android:paddingHorizontal="20dp"
-                android:background="@drawable/bg_btn2"/>
+                android:background="@drawable/bg_btn2_action"/>
 
     </LinearLayout>
 
