@@ -59,7 +59,7 @@
             android:layout_marginTop="20dp"
             android:paddingVertical="10dp"
             android:paddingHorizontal="50dp"
-            android:background="@drawable/bg_btn3"/>
+            android:background="@drawable/bg_btn2"/>
 
     <Button
             android:id="@+id/bt_create"
