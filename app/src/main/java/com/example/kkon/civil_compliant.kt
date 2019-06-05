@@ -22,13 +22,15 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.android.gms.common.internal.service.Common
-
-
+import com.google.firebase.storage.FirebaseStorage
+import java.io.File
 
 
 class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 화면
     var data:ArrayList<Data> = ArrayList()
     lateinit var adapter:Myadater
+    val storage = FirebaseStorage.getInstance()
+    val storageRef = storage.reference
     var aaa=0
     var flag=0
     var civil_email=""
@@ -43,11 +45,20 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                 val pass1=data?.getStringExtra("pass1")
                 val pass2=data?.getStringExtra("pass2")
                 var pass3=data?.getIntExtra("pass3",-1)
+                val pass4=data?.getStringExtra("pass4")
                 val database333 : FirebaseDatabase = FirebaseDatabase.getInstance()
                 val myRef333 : DatabaseReference = database333.getReference("user")
                 myRef333.child("user$pass3").child("email").setValue(pass1) //user1 email status
                 myRef333.child("user$pass3").child("status").setValue(pass2)
                 myRef333.child("user$pass3").child("writer").setValue(civil_email)
+                var file = Uri.fromFile(File(pass4.toString()))
+                val riversRef = storageRef.child("images/"+"user$pass3")
+                riversRef.putFile(file).addOnSuccessListener {
+                    riversRef.downloadUrl.addOnCompleteListener {
+                        var uri = it.result
+                        myRef333.child("user$pass3").child("img").setValue(uri.toString())
+                    }
+                }
             }
         }
     }
@@ -80,7 +91,7 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                         //////////////////////////////////////
                         myRef33.child(snapshot.key.toString()).removeValue()
                         builder.setTitle("알림")
-                        builder.setMessage("회원님의 (" + email + " , " + status + ") 민원이 처리되었습니다.")
+                        builder.setMessage("회원님dl 좋아요 한 (" + email + " , " + status + ") 민원이 처리되었습니다.")
                         builder.setPositiveButton("확인") { _, _ ->
 
                         }
@@ -139,7 +150,7 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                             Data(
                                 snapshot.child("email").value.toString(),
                                 snapshot.child("status").value.toString(),
-                                1
+                                1,snapshot.child("img").value.toString()
                             )
                         )
                         flag=0
@@ -149,7 +160,7 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
                             Data(
                                 snapshot.child("email").value.toString(),
                                 snapshot.child("status").value.toString(),
-                                0
+                                0,snapshot.child("img").value.toString()
                             )
                         )
                         flag=0
@@ -176,6 +187,13 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
         val myRef = database.getReference("user")
         val builder = AlertDialog.Builder(ContextThemeWrapper(this@civil_compliant, R.style.Theme_AppCompat_Light_Dialog))
         adapter.itemClickListener=object:Myadater.OnItemClickListener{
+            override fun OnimageClick(holder: Myadater.ViewHolder, view: View, data: Data, position: Int) {
+                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                val i=Intent(applicationContext,imageBig::class.java)
+                i.putExtra("greenjoa",data.img)
+                startActivity(i)
+            }
+
             override fun OnLikeClick(holder: Myadater.ViewHolder, view: View, data: Data, position: Int) {
                 //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 when(data.like){

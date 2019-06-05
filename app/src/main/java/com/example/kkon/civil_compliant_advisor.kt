@@ -55,7 +55,7 @@ class civil_compliant_advisor : AppCompatActivity() { //로그인해서 들어�
                                 Data(
                                     snapshot.child("email").value.toString(),
                                     snapshot.child("status").value.toString(),
-                                    0
+                                    0,snapshot.child("img").value.toString()
                                 )
                             )
                         }
@@ -64,7 +64,7 @@ class civil_compliant_advisor : AppCompatActivity() { //로그인해서 들어�
                             Data(
                                 snapshot.child("email").value.toString(),
                                 snapshot.child("status").value.toString(),
-                                0
+                                0,snapshot.child("img").value.toString()
                             )
                         )
                     }
@@ -84,6 +84,13 @@ class civil_compliant_advisor : AppCompatActivity() { //로그인해서 들어�
         val myRef = database.getReference("user")
         val builder = AlertDialog.Builder(ContextThemeWrapper(this@civil_compliant_advisor, R.style.Theme_AppCompat_Light_Dialog))
         adapter.itemClickListener=object:Myadater.OnItemClickListener{
+            override fun OnimageClick(holder: Myadater.ViewHolder, view: View, data: Data, position: Int) {
+                //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+               val i=Intent(applicationContext,imageBig::class.java)
+               i.putExtra("greenjoa",data.img)
+               startActivity(i)
+            }
             override fun OnLikeClick(holder: Myadater.ViewHolder, view: View, data: Data, position: Int) {
                 //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
@@ -163,7 +170,7 @@ class civil_compliant_advisor : AppCompatActivity() { //로그인해서 들어�
                                     Data(
                                         snapshot.child("email").value.toString(),
                                         snapshot.child("status").value.toString(),
-                                        0
+                                        0,snapshot.child("img").value.toString()
                                     )
                                 )
                             }
@@ -172,7 +179,7 @@ class civil_compliant_advisor : AppCompatActivity() { //로그인해서 들어�
                                 Data(
                                     snapshot.child("email").value.toString(),
                                     snapshot.child("status").value.toString(),
-                                    0
+                                    0,snapshot.child("img").value.toString()
                                 )
                             )
                         }

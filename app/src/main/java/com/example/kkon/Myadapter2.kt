@@ -8,13 +8,28 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.listlayout.view.*
+import kotlin.coroutines.coroutineContext
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.load.resource.bitmap.TransformationUtils.centerCrop
+import android.R.transition
+import android.util.Log
+import com.bumptech.glide.GlideContext
+import com.bumptech.glide.load.model.GlideUrl
+import com.koushikdutta.ion.Ion
+
 
 class Myadater(val items:ArrayList<Data>)
     :RecyclerView.Adapter<Myadater.ViewHolder>(){
     interface OnItemClickListener{
         fun OnItemClick(holder: ViewHolder,view: View,data:Data,position:Int)
         fun OnLikeClick(holder: ViewHolder,view: View,data:Data,position:Int)
+        fun OnimageClick(holder: ViewHolder,view: View,data:Data,position:Int)
     }
     var itemClickListener:OnItemClickListener?=null
 
@@ -33,7 +48,7 @@ class Myadater(val items:ArrayList<Data>)
             0 -> p0.like.setImageResource(R.drawable.unlikee)
             1 -> p0.like.setImageResource(R.drawable.likee)
         }
-
+        Ion.with(p0.img).load(items.get(p1).img)
     }
 
     override fun getItemCount(): Int {
@@ -45,10 +60,12 @@ class Myadater(val items:ArrayList<Data>)
         var name: TextView
         var age: TextView
         var like: ImageButton
+        var img: ImageButton
         init{ //초기화를 해줄수있는 init블록
             name = itemView.findViewById(R.id.text1)
             age = itemView.findViewById(R.id.text2)
             like = itemView.findViewById(R.id.imageView)
+            img = itemView.findViewById(R.id.photo)
             itemView.setOnClickListener {
                 val position=adapterPosition
                 itemClickListener?.OnItemClick(this,it,items[position],position)
@@ -57,7 +74,13 @@ class Myadater(val items:ArrayList<Data>)
                 val position=adapterPosition
                 itemClickListener?.OnLikeClick(this,it,items[position],position)
             }
+            itemView.photo.setOnClickListener {
+                val position=adapterPosition
+                Log.d("bbb","adapter쪽")
+                itemClickListener?.OnimageClick(this,it,items[position],position)
+            }
 
         }
     }
+    inner class MyAppGlideModule : AppGlideModule()
 }
