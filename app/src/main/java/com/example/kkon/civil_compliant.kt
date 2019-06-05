@@ -13,12 +13,16 @@ import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_civil_compliant.*
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.android.gms.common.internal.service.Common
+
 
 
 
@@ -52,7 +56,6 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_civil_compliant)
         val myRef77777 : DatabaseReference = database.getReference("user_cnt")
-
         myRef77777.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 aaa=p0.child("cnt").value.toString().toInt()
@@ -160,6 +163,7 @@ class civil_compliant : AppCompatActivity() { //로그인해서 들어왔을때 
             }
         })
     }
+
     override fun onDestroy() {
         super.onDestroy()
         civil_email=""
