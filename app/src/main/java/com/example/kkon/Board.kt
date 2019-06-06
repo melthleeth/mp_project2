@@ -112,7 +112,7 @@ class Board : AppCompatActivity() {
                 recyclerview.adapter = adapter1Board
                 adapter1Board.notifyDataSetChanged()
 
-                adapter2Board = BoardDataAdapter(boardData2)
+                adapter2Board = BoardDataAdapter(boardData3)
                 recyclerview2.adapter = adapter2Board
                 adapter2Board.notifyDataSetChanged()
                 txt_recyclerView2.text = "취업공지"
@@ -121,7 +121,7 @@ class Board : AppCompatActivity() {
 
                 adapterClick()
             } else {
-                adapter1Board = BoardDataAdapter(boardData3)
+                adapter1Board = BoardDataAdapter(boardData2)
                 recyclerview.adapter = adapter1Board
                 adapter1Board.notifyDataSetChanged()
 
